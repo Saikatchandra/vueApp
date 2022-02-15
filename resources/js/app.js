@@ -23,12 +23,5 @@ const router = VueRouter.createRouter({
   
   app.component('admin-master' , adminMaster);
 
-
- 
-
-// const app = new Vue({
-//     el: '#app',
-//     router
-// });
-app.mount("#app")
+  app.mount("#app")
 

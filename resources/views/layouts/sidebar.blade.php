@@ -63,7 +63,7 @@
                     </ul> --}}
                 </li>
                 <li class="nav-item">
-                    <router-link to="/test" class="nav-link">
+                    <router-link to="/categoryList" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Category

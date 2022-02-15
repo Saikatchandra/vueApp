@@ -1,5 +1,6 @@
 import dashboard from "./components/dashboard/index"
-import test from "./components/test"
+import categoryList from "./components/category/index"
+import addCategory from "./components/category/add"
 
 export const routes = [
     {
@@ -8,9 +9,14 @@ export const routes = [
         component: dashboard
     },
     {
-        path: '/test',
-        name: 'test',
-        component: test
-    }
+        path: '/categoryList',
+        name: 'categoryList',
+        component: categoryList
+    },
+    {
+        path: '/addCategory',
+        name: 'addCategory',
+        component: addCategory
+    },
 
 ]   
