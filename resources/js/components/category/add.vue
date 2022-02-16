@@ -37,18 +37,15 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form
-                  @submit.prevent="saveCategory"
-                  @keydown="form.onKeydown($event)"
-                >
+                <form  @submit.prevent="saveCategory" @keydown="form.onKeydown($event)">
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Category Name</label>
                       <input
                         type="text"
                         class="form-control"
-                        v-model="form.cat_name"
                         name="cat_name"
+                        v-model="form.cat_name"
                         id="exampleInputEmail1"
                         placeholder="Enter category name"
                       />
@@ -61,10 +58,10 @@
                   <!-- /.card-body -->
 
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary mr-3">
                       Submit
                     </button>
-                    <router-link to="/category" class="btn btn-warning">
+                    <router-link to="/categoryList" class="btn btn-warning">
                       Back</router-link
                     >
                     <!-- <button type="submit" @click="goBack" class="btn btn-warning">Back</button> -->
@@ -86,7 +83,34 @@
 </template>
 
 <script>
-export default {};
+import Form from "vform";
+export default {
+  name: "add",
+
+   data: () => ({
+    form: new Form({
+      cat_name: "",
+    }),
+  }),
+  
+  methods:{
+    saveCategory(){
+      this.form.post('/saveCategory')
+      .then((res) => {
+        console.log(res);
+        this.$router.push('/categoryList');
+        Toast.fire({
+            icon: "success",
+            title: "Category Added successfully",
+          });
+      }).catch((e) => {
+        console.log(e);
+      })
+    }
+  }
+
+
+};
 </script>
 
 <style lang="scss" scoped>

@@ -17,6 +17,6 @@ export const routes = [
         path: '/addCategory',
         name: 'addCategory',
         component: addCategory
-    },
+    }
 
 ]   

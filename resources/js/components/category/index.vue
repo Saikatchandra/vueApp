@@ -40,13 +40,13 @@
                                         <tr>
                                             <th style="width: 10px">#</th>
                                             <th>Category Name</th>
-                                            <th style="width: 40px">Action ss</th>
+                                            <th style="width: 40px">Action </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for = "(categoryList,index) in getCategoryList" :key = "categoryList.id">
-                                            <td>{{index +1}}</td>
-                                            <td>{{ categoryList }}</td>
+                                            <td>{{index + 1}}</td>
+                                            <td>{{ categoryList.cat_name }}</td>
                                             <td>
                                                 <div class="">
                                                     <router-link to="" class="btn btn-sm btn-primary pr-2">
@@ -91,7 +91,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+    name: "index",
+
+    mounted() {
+        this.$store.dispatch('getCategoryList')
+    },
+    computed:{
+        getCategoryList(){
+            return this.$store.getters.categoryList;
+        }
+    }
+};
 </script>
 
 <style lang="scss" scoped>

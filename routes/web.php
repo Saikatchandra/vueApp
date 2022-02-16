@@ -20,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/categoryList', [App\Http\Controllers\CategoryController::class, 'index'])->name('category.list');
+Route::post('/saveCategory', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.save');
