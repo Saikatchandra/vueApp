@@ -49,7 +49,7 @@
                                             <td>{{ categoryList.cat_name }}</td>
                                             <td>
                                                 <div class="">
-                                                    <router-link to="" class="btn btn-sm btn-primary pr-2">
+                                                    <router-link :to="`/editCategory/${categoryList.id}`" class="btn btn-sm btn-primary pr-2">
                                                         <i class="fa fa-edit"></i>
                                                     </router-link>
                                                     <router-link to="" class="btn btn-sm btn-danger">
@@ -57,7 +57,6 @@
                                                     </router-link>
                                                 </div>
                                             </td>
-                                            <!-- <td><span class="badge bg-danger">55%</span></td> -->
                                         </tr>
                                     </tbody>
                                 </table>

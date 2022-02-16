@@ -1,6 +1,7 @@
 import dashboard from "./components/dashboard/index"
 import categoryList from "./components/category/index"
 import addCategory from "./components/category/add"
+import editCategory from "./components/category/edit"
 
 export const routes = [
     {
@@ -17,6 +18,11 @@ export const routes = [
         path: '/addCategory',
         name: 'addCategory',
         component: addCategory
-    }
+    },
+    {
+        path: '/editCategory/:categoryId',
+        name: 'editCategory',
+        component: editCategory
+    },
 
 ]   

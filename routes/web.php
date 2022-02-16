@@ -22,3 +22,6 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/categoryList', [App\Http\Controllers\CategoryController::class, 'index'])->name('category.list');
 Route::post('/saveCategory', [App\Http\Controllers\CategoryController::class, 'store'])->name('category.save');
+Route::get('/getCategoryById/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
+Route::post('/updateCategory/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
+

@@ -111,14 +111,14 @@
                 </li> --}}
 
                 <li class="nav-item">
-                  <a href="pages/widgets.html" class="nav-link">
-                      <i class="nav-icon fas fa-th"></i>
+                  <a href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" class="nav-link">
+                      <i class="nav-icon fas fa-power-off"></i>
                       <p>
-                          <a  href="{{ route('logout') }}"
-                          onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
+                        
                            Logout
-                       </a>
+                      
 
                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                            @csrf
