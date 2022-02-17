@@ -26,3 +26,11 @@ Route::get('/getCategoryById/{id}', [App\Http\Controllers\CategoryController::cl
 Route::post('/updateCategory/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('category.update');
 Route::get('/deleteCategory/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('category.remove');
 
+
+Route::get('/subCategoryList', [App\Http\Controllers\SubCategoryController::class, 'index'])->name('subCategory.list');
+Route::post('/saveSubCategory', [App\Http\Controllers\SubCategoryController::class, 'store'])->name('subCategory.save');
+Route::get('/getSubCategoryById/{id}', [App\Http\Controllers\SubCategoryController::class, 'edit'])->name('subCategory.edit');
+Route::post('/updateSubCategory/{id}', [App\Http\Controllers\SubCategoryController::class, 'update'])->name('subCategory.update');
+Route::get('/deleteSubCategory/{id}', [App\Http\Controllers\SubCategoryController::class, 'delete'])->name('subCategory.remove');
+
+

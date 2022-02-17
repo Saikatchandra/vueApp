@@ -43,7 +43,7 @@ import { routes } from './router';
 
 
 const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
+    history: VueRouter.createWebHashHistory(),
     routes,
   });
   
