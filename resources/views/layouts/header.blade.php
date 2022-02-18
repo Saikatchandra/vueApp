@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ url('/dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ url('/css/app.css') }}">
 </head>
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper" id="app">
 
   <!-- Preloader -->

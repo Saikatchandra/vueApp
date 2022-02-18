@@ -33,7 +33,7 @@
               <!-- general form elements -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Update Sub Category</h3>
+                  <h3 class="card-title">Update Content</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -71,7 +71,7 @@
                     <button type="submit" class="btn btn-primary mr-3">
                       Submit
                     </button>
-                    <router-link to="/subCategoryList" class="btn btn-warning">
+                    <router-link to="/contentList" class="btn btn-warning">
                       Back</router-link
                     >
                   </div>

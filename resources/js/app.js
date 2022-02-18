@@ -35,6 +35,9 @@ const Toast = Swal.mixin({
 window.Toast = Toast;
 
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
+app.use( CKEditor );
 
 // Vue Router Supporter 
 import * as VueRouter from 'vue-router';
