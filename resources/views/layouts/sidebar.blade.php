@@ -71,6 +71,24 @@
                         </p>
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link to="/subCategoryList" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Sub-Category
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/contentList" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Content
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </router-link>
+                </li>
               
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">

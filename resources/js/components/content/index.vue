@@ -7,13 +7,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Category List</h1>
+              <h1 class="m-0">Content List</h1>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Category List</li>
+                <li class="breadcrumb-item active">Content List</li>
               </ol>
             </div>
             <!-- /.col -->
@@ -32,12 +32,12 @@
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Category List</h3>
+                  <h3 class="card-title">Content List</h3>
                   <div class="text-right">
                     <router-link
-                      to="/addCategory"
+                      to="/addContent"
                       class="btn btn-primary btn-sm"
-                      >Add Category
+                      >Add Content
                     </router-link>
                   </div>
                 </div>
@@ -47,27 +47,29 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Category Name</th>
+                        <th>Category</th>
+                        <th>SubCategory Name</th>
                         <th style="width: 40px">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(categoryList, index) in getCategoryList"
-                        :key="categoryList.id"
+                        v-for="(subcategoryList, index) in getSubCategoryList"
+                        :key="subcategoryList.id"
                       >
                         <td>{{ index + 1 }}</td>
-                        <td>{{ categoryList.cat_name }}</td>
+                        <td>{{ subcategoryList.categories ? subcategoryList.categories.cat_name : 'No category' }}</td>
+                        <td>{{ subcategoryList.sub_cat_name }}</td>
                         <td>
                           <div class="">
                             <router-link
-                              :to="`/editCategory/${categoryList.id}`"
+                              :to="`/editSubCategory/${subcategoryList.id}`"
                               class="btn btn-sm btn-primary pr-2"
                             >
                               <i class="fa fa-edit"></i>
                             </router-link>
                             <a
-                              @click.prevent="removeCategory(categoryList.id)"
+                              @click.prevent="removeSubCategory(subcategoryList.id)"
                               class="btn btn-sm btn-danger"
                             >
                               <i class="fa fa-trash"></i>
@@ -118,23 +120,24 @@ export default {
   name: "index",
 
   mounted() {
-    this.$store.dispatch("getCategoryList");
+    this.$store.dispatch("getSubCategoryList");
   },
   computed: {
-    getCategoryList() {
-      return this.$store.getters.categoryList;
+    getSubCategoryList() {
+      return this.$store.getters.subCategoryList;
     },
   },
 
   methods: {
-    removeCategory(id) {
+    removeSubCategory(id) {
       axios
-        .get("/deleteCategory/" + id)
+        .get("/deleteSubCategory/" + id)
         .then((res) => {
-          this.$store.dispatch("getCategoryList");
+          console.log(res);
+          this.$store.dispatch("getSubCategoryList");
           Toast.fire({
             icon: "success",
-            title: "Category deleted successfully",
+            title: "Sub Category deleted successfully",
           });
         })
         .catch((err) => {

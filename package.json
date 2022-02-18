@@ -10,6 +10,8 @@
     "watch-poll": "mix watch -- --watch-options-poll=1000"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^32.0.0",
+    "@ckeditor/ckeditor5-vue": "^2.0.1",
     "@vue/composition-api": "^1.4.6",
     "pinia": "^0.5.4",
     "sweetalert2": "^11.4.0",
