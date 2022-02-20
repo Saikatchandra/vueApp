@@ -5,6 +5,7 @@ export default {
     state: {
         category: [],
         subCategory: [],
+        content: [],
     },
     getters: {
         categoryList(state){
@@ -13,6 +14,9 @@ export default {
         subCategoryList(state){
             return state.subCategory;
         },
+        contentList(state){
+            return state.content;
+        }
     },
     actions: {
         getCategoryList(context){
@@ -29,6 +33,14 @@ export default {
                 console.log(e);
             })
         },
+        getContentList(context){
+            axios.get('/contentList').then((res)=>{
+                // alert('hi');
+                    context.commit('contentList',res.data.contentList)
+            }).catch((e)=>{
+                console.log(e);
+            })
+        }
     },
     mutations: {
         categoryList(state, responseData){
@@ -37,6 +49,9 @@ export default {
         subCategoryList(state, responseData){
             return state.subCategory = responseData
         },
+        contentList(state, responseData){
+            return state.content = responseData
+        }
     },
 
 

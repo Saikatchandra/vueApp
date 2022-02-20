@@ -49,27 +49,29 @@
                         <th style="width: 10px">#</th>
                         <th>Category</th>
                         <th>SubCategory Name</th>
+                        <th>Content Name</th>
                         <th style="width: 40px">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(subcategoryList, index) in getSubCategoryList"
-                        :key="subcategoryList.id"
+                        v-for="(contentList, index) in getContentList"
+                        :key="contentList.id"
                       >
                         <td>{{ index + 1 }}</td>
-                        <td>{{ subcategoryList.categories ? subcategoryList.categories.cat_name : 'No category' }}</td>
-                        <td>{{ subcategoryList.sub_cat_name }}</td>
+                        <td>{{ contentList.categories.cat_name  }}</td>
+                        <td>{{ contentList.sub_categories.sub_cat_name }}</td>
+                        <td>{{ contentList.title }}</td>
                         <td>
                           <div class="">
                             <router-link
-                              :to="`/editSubCategory/${subcategoryList.id}`"
+                              :to="`/editContent/${contentList.id}`"
                               class="btn btn-sm btn-primary pr-2"
                             >
                               <i class="fa fa-edit"></i>
                             </router-link>
                             <a
-                              @click.prevent="removeSubCategory(subcategoryList.id)"
+                              @click.prevent="removeContent(contentList.id)"
                               class="btn btn-sm btn-danger"
                             >
                               <i class="fa fa-trash"></i>
@@ -120,24 +122,24 @@ export default {
   name: "index",
 
   mounted() {
-    this.$store.dispatch("getSubCategoryList");
+    this.$store.dispatch("getContentList");
   },
   computed: {
-    getSubCategoryList() {
-      return this.$store.getters.subCategoryList;
+    getContentList() {
+      return this.$store.getters.contentList;
     },
   },
 
   methods: {
-    removeSubCategory(id) {
+    removeContent(id) {
       axios
-        .get("/deleteSubCategory/" + id)
+        .get("/deleteContent/" + id)
         .then((res) => {
           console.log(res);
-          this.$store.dispatch("getSubCategoryList");
+          this.$store.dispatch("getContentList");
           Toast.fire({
             icon: "success",
-            title: "Sub Category deleted successfully",
+            title: "Content deleted successfully",
           });
         })
         .catch((err) => {

@@ -73,10 +73,10 @@
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">upload image</label>
-                                                <input type="file" class="form-control" name="contentImage" id="exampleInputEmail1" @change = "getFile" placeholder="Enter sub category name" />
+                                                <input type="file" class="form-control" name="file" id="exampleInputEmail1" @change = "getFile" placeholder="Enter sub category name" />
                                                 <!-- <div v-if="form.errors.has('sub_cat_name')" v-html="form.errors.get('sub_cat_name')" /> -->
-                                                <has-error :form="form" field="contentImage"></has-error>
-                                                <div v-if = "errors && errors.contentImage">{{errors.contentImage[0]}}</div>
+                                             
+                                                <div v-if = "errors && errors.file">{{errors.file[0]}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -95,10 +95,11 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Content description</label>
-                                                        <ckeditor :editor="editor" name="desc" v-model= "desc" :config="editorConfig"></ckeditor>
+                                                        <label for="exampleInputEmail1">Content details</label>
+                                                        <textarea class="form-control" name="details"  v-model= "details" id="exampleInputEmail1" placeholder="Enter content details here...."></textarea>
+                                                       
                                                         <!-- <div v-if="form.errors.has('title')" v-html="form.errors.get('title')" /> -->
-                                                         <div v-if = "errors && errors.desc">{{errors.desc[0]}}</div>
+                                                         <div v-if = "errors && errors.details">{{errors.details[0]}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,15 +151,15 @@ export default {
           cat_id: '',
           sub_cat_id: '',
           title: '',
-          desc: '',
-          contentImage: '',
+          details: '',
+          file: '',
           vedioUrl: '',
           errors: {},
 
 
 
             editor: ClassicEditor,
-            editorData: '<p class="ckeditor">Rich-text editor content.</p>',
+            editorData: '<p>Rich-text editor content.</p>',
             editorConfig: {
                 // The configuration of the rich-text editor.
             },
@@ -191,15 +192,23 @@ export default {
       },
 
       getFile(e){
-        this.contentImage = e.target.files[0];
+        this.file = e.target.files[0];
+        // if(this.file.size > 2097152){
+        if(this.file.size > 1048576){
+            Swal.fire({
+                icon: "error",
+                icon: "Ooops...",
+                text: "file is lager than 2 MB",
+            })
+        }
       },
         contentSave() {
           let form = new FormData;
-          form.append('contentImage', this.contentImage);
+          form.append('file', this.file);
           form.append('cat_id', this.cat_id);
           form.append('sub_cat_id', this.sub_cat_id);
           form.append('title', this.title);
-          form.append('desc', this.desc);
+          form.append('details', this.details);
           form.append('vedioUrl', this.vedioUrl);
             
               axios.post("/saveContent",form)
@@ -211,8 +220,8 @@ export default {
                         title: "Content Added successfully",
                     });
                 })
-                .catch((e) => {
-                    console.log(e);
+                .catch((error) => {
+                    console.log(error);
                     this.errors = error.response.data.errors;
                 });
         },
@@ -225,7 +234,4 @@ export default {
     border-right: 1px solid black;
 }
 
-.ckeditor {
-    color: blue;
-}
 </style>

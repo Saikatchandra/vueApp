@@ -38,6 +38,16 @@ class CategoryController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function delete($id){
+        $category = Category::find($id);
+        $category->delete();
+        if(isset($category)){
+                return response()->json(['success'=>true]);
+        }else{
+            return response()->json(['error'=> true]);
+        }
+    }
+
     public function formValidation(Request $request){
         $request->validate([
             'cat_name' => 'required',

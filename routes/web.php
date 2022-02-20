@@ -35,5 +35,9 @@ Route::get('/deleteSubCategory/{id}', [App\Http\Controllers\SubCategoryControlle
 
 Route::get('/getSubCategoryByCategoryId/{id}', [App\Http\Controllers\ContentController::class, 'getSubCategoryByCatId'])->name('subCategory.remove');
 Route::post('/saveContent', [App\Http\Controllers\ContentController::class, 'store'])->name('content.save');
+Route::get('/contentList', [App\Http\Controllers\ContentController::class, 'index'])->name('content.list');
 
+Route::get('/getContentById/{id}', [App\Http\Controllers\ContentController::class, 'edit'])->name('content.edit');
+Route::post('/updateContent/{id}', [App\Http\Controllers\ContentController::class, 'update'])->name('content.update');
+Route::get('/deleteContent/{id}', [App\Http\Controllers\ContentController::class, 'delete'])->name('content.remove');
 
