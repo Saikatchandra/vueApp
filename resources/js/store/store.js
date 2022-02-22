@@ -6,6 +6,7 @@ export default {
         category: [],
         subCategory: [],
         content: [],
+        user: [],
     },
     getters: {
         categoryList(state){
@@ -16,6 +17,9 @@ export default {
         },
         contentList(state){
             return state.content;
+        },
+        userList(state){
+            return state.user;
         }
     },
     actions: {
@@ -40,7 +44,16 @@ export default {
             }).catch((e)=>{
                 console.log(e);
             })
-        }
+        },
+        getUserList(context){
+            axios.get('/userList').then((res)=>{
+                // alert('hi');
+                console.log(res);
+                    context.commit('userList',res.data.userList)
+            }).catch((e)=>{
+                console.log(e);
+            })
+        },
     },
     mutations: {
         categoryList(state, responseData){
@@ -51,7 +64,10 @@ export default {
         },
         contentList(state, responseData){
             return state.content = responseData
-        }
+        },
+        userList(state, responseData){
+            return state.user = responseData
+        },
     },
 
 

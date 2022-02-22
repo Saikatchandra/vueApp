@@ -11,6 +11,14 @@ import editSubCategory from "./components/subCategory/edit"
 import contentList from "./components/content/index"
 import addContent from "./components/content/add"
 import editContent from "./components/content/edit"
+//  user componenet
+import userList from "./components/user/index"
+import addUser from "./components/user/add"
+import editUser from "./components/user/edit"
+//  role componenet
+import roleList from "./components/role/index"
+import addRole from "./components/role/add"
+import editRole from "./components/role/edit"
 
 export const routes = [
     {
@@ -62,6 +70,36 @@ export const routes = [
         path: '/editContent/:contentId',
         name: 'editContent',
         component: editContent
-    }
+    },
+    {
+        path: '/userList',
+        name: 'userList',
+        component: userList
+    },
+    {
+        path: '/addUser',
+        name: 'addUser',
+        component: addUser
+    },
+    {
+        path: '/editUser/:userId',
+        name: 'editUser',
+        component: editUser
+    },
+    {
+        path: '/roleList',
+        name: 'roleList',
+        component: roleList
+    },
+    {
+        path: '/addRole',
+        name: 'addRole',
+        component: addRole
+    },
+    {
+        path: '/editRole/:roleId',
+        name: 'editRole',
+        component: editRole
+    },
 
 ]   

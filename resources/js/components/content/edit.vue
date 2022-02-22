@@ -268,7 +268,7 @@ export default {
           form.append('details', this.details);
           form.append('vedioUrl', this.vedioUrl);
             
-              axios.post(`/updateContent/${this.$route.params.contentnId}`,form)
+              axios.post(`/updateContent/${this.$route.params.contentId}`,form)
                 .then((res) => {
                     console.log(res);
                     this.$router.push("/contentList");

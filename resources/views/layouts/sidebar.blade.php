@@ -89,6 +89,24 @@
                         </p>
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link to="/userList" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            User
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link to="/roleList" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Role
+                            {{-- <span class="right badge badge-danger">New</span> --}}
+                        </p>
+                    </router-link>
+                </li>
               
                 {{-- <li class="nav-item">
                     <a href="#" class="nav-link">

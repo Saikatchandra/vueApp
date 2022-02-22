@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +42,10 @@ Route::get('/contentList', [App\Http\Controllers\ContentController::class, 'inde
 Route::get('/getContentById/{id}', [App\Http\Controllers\ContentController::class, 'edit'])->name('content.edit');
 Route::post('/updateContent/{id}', [App\Http\Controllers\ContentController::class, 'update'])->name('content.update');
 Route::get('/deleteContent/{id}', [App\Http\Controllers\ContentController::class, 'delete'])->name('content.remove');
+
+Route::resource('roles', RoleController::class);
+// Route::resource('users', UserController::class);
+// Route::resource('products', ProductController::class);
+Route::get('/userList', [App\Http\Controllers\UserController::class, 'index'])->name('user.list');
+Route::post('/saveUser', [App\Http\Controllers\UserController::class, 'store'])->name('user.save');
 

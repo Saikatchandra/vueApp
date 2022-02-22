@@ -62,7 +62,7 @@ class ContentController extends Controller
             $file_url = $newFileName;
             $request->file->move($uploadPath, $newFileName);
         }
-        $content = new Content();
+        // $content = new Content();
         $content->category_id = $request->cat_id;
         $content->subCategory_id = $request->sub_cat_id;
         $content->title = $request->title;

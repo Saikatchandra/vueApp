@@ -17,10 +17,10 @@ class CreateContentsTable extends Migration
             $table->id();
             $table->integer('category_id');
             $table->integer('subCategory_id');
-            $table->integer('title');
-            $table->integer('description')->nullable();
-            $table->integer('file')->nullable();
-            $table->integer('vedioUrl')->nullable();
+            $table->string('title');
+            $table->string('details')->nullable();
+            $table->string('file')->nullable();
+            $table->string('vedioUrl')->nullable();
             $table->softDeletes();  
             $table->timestamps();
         });
