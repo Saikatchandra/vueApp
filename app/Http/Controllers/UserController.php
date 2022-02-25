@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class UserController extends Controller
 {
@@ -21,9 +22,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $userList = User::orderBy('id','DESC')->get();
-        // return view('users.index',compact('data'))
-        //     ->with('i', ($request->input('page', 1) - 1) * 5);
+        // $userList = User::orderBy('id','DESC')->get();
+
+        $userList = DB::table('users')
+        ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+        ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+        ->select('users.*', 'roles.name as role_name')
+        ->get();
         return response()->json(['userList' => $userList],200);
     }
     
@@ -46,21 +51,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            // 'password' => 'required|same:confirm-password',
+            'password' => 'required',
+            // 'roles' => 'required'
         ]);
     
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        // $user->assignRole($request->input('roles'));
     
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+        // return redirect()->route('users.index')
+        //                 ->with('success','User created successfully');
+        return response()->json(['user'=>$user,'success'=>true],200);
     }
     
     /**
@@ -83,11 +91,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $userById = User::find($id);
+        // dd($userById);
         $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $userRole = $userById->roles->pluck('name','name')->all();
     
-        return view('users.edit',compact('user','roles','userRole'));
+        // return view('users.edit',compact('user','roles','userRole'));
+        return response()->json(['userById'=>$userById, 'roles'=>$roles,'userRole'=>$userRole]);
     }
     
     /**
@@ -99,12 +109,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users,email,'.$id,
+        //     // 'password' => 'same:confirm-password',
+        //     // 'roles' => 'required'
+        // ]);
     
         $input = $request->all();
         if(!empty($input['password'])){ 
@@ -119,8 +129,10 @@ class UserController extends Controller
     
         $user->assignRole($request->input('roles'));
     
-        return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+        // return redirect()->route('users.index')
+        //                 ->with('success','User updated successfully');
+
+        return response()->json(['user'=>$user,'success'=>true]);
     }
     
     /**
@@ -132,7 +144,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        // return redirect()->route('users.index')
+        //                 ->with('success','User deleted successfully');
+        return response()->json(['success'=>true]);
     }
 }

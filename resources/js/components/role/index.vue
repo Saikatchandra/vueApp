@@ -7,13 +7,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Category List</h1>
+              <h1 class="m-0">Role List</h1>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Category List</li>
+                <li class="breadcrumb-item active">Role List</li>
               </ol>
             </div>
             <!-- /.col -->
@@ -32,12 +32,12 @@
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Category List</h3>
+                  <h3 class="card-title">Role List</h3>
                   <div class="text-right">
                     <router-link
-                      to="/addCategory"
+                      to="/addRole"
                       class="btn btn-primary btn-sm"
-                      >Add Category
+                      >Add Role
                     </router-link>
                   </div>
                 </div>
@@ -47,27 +47,27 @@
                     <thead>
                       <tr>
                         <th style="width: 10px">#</th>
-                        <th>Category Name</th>
+                        <th>Role Name</th>
                         <th style="width: 40px">Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(categoryList, index) in getCategoryList"
-                        :key="categoryList.id"
+                        v-for="(roleList, index) in getRoleList"
+                        :key="roleList.id"
                       >
                         <td>{{ index + 1 }}</td>
-                        <td>{{ categoryList.cat_name }}</td>
+                        <td>{{ roleList.name }}</td>
                         <td>
                           <div class="">
                             <router-link
-                              :to="`/editCategory/${categoryList.id}`"
+                              :to="`/editCategory/${roleList.id}`"
                               class="btn btn-sm btn-primary pr-2"
                             >
                               <i class="fa fa-edit"></i>
                             </router-link>
                             <a
-                              @click.prevent="removeCategory(categoryList.id)"
+                              @click.prevent="removeRole(roleList.id)"
                               class="btn btn-sm btn-danger"
                             >
                               <i class="fa fa-trash"></i>
@@ -118,23 +118,23 @@ export default {
   name: "index",
 
   mounted() {
-    this.$store.dispatch("getCategoryList");
+    this.$store.dispatch("getRoleList");
   },
   computed: {
-    getCategoryList() {
-      return this.$store.getters.categoryList;
+    getRoleList() {
+      return this.$store.getters.roleList;
     },
   },
 
   methods: {
-    removeCategory(id) {
+    removeRole(id) {
       axios
-        .get("/deleteCategory/" + id)
+        .get("/deleteRole/" + id)
         .then((res) => {
-          this.$store.dispatch("getCategoryList");
+          this.$store.dispatch("getRoleList");
           Toast.fire({
             icon: "success",
-            title: "Category deleted successfully",
+            title: "Role deleted successfully",
           });
         })
         .catch((err) => {

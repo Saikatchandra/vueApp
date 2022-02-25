@@ -49,6 +49,7 @@
                         <th style="width: 10px">#</th>
                         <th>User Name</th>
                         <th>Email</th>
+                        <th>Permission</th>
                         <th style="width: 40px">Action</th>
                       </tr>
                     </thead>
@@ -60,6 +61,7 @@
                         <td>{{ index + 1 }}</td>
                         <td>{{ userList.name }}</td>
                         <td>{{ userList.email }}</td>
+                        <td>{{ userList.role_name }}</td>
                         <td>
                           <div class="">
                             <router-link
@@ -130,7 +132,7 @@ export default {
   },
 
   methods: {
-    removeCategory(id) {
+    removeUser(id) {
       axios
         .get("/deleteUser/" + id)
         .then((res) => {

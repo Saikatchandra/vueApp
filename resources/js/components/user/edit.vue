@@ -40,20 +40,51 @@
                 <form  @submit.prevent="updateUser">
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Category Name</label>
+                      <label for="exampleInputEmail1">User Name</label>
                       <input
                         type="text"
                         class="form-control"
-                        name="cat_name"
-                        v-model="form.cat_name"
+                        name="name"
+                        v-model="name"
                         id="exampleInputEmail1"
-                        placeholder="Enter category name"
+                        placeholder="Enter name"
                       />
-                      <div
-                        v-if="form.errors.has('cat_name')"
-                        v-html="form.errors.get('cat_name')"
-                      />
+                       <div v-if = "errors && errors.details">{{errors.name[0]}}</div>
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">User email</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="email"
+                        v-model="email"
+                        id="exampleInputEmail1"
+                        placeholder="Enter email"
+                      />
+                       <div v-if = "errors && errors.details">{{errors.email[0]}}</div>
+                    </div>
+                    <!-- <div class="form-group">
+                      <label for="exampleInputEmail1">User password</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="password"
+                        v-model="password"
+                        id="exampleInputEmail1"
+                        placeholder="Enter password"
+                      />
+                       <div v-if = "errors && errors.details">{{errors.password[0]}}</div>
+                    </div> -->
+                    <!-- <div class="form-group">
+                      <label for="exampleInputEmail1">Role</label>
+                     
+                      <select name="roles" v-model = "roles" id="" class="form-control" >
+                        <option value="">sdfsdf</option>
+                        
+                      </select>
+                      <div v-if = "errors && errors.title">{{errors.name[0]}}</div>
+                     
+                    </div> -->
                   </div>
                   <!-- /.card-body -->
 
@@ -61,7 +92,7 @@
                     <button type="submit" class="btn btn-primary mr-3">
                       Submit
                     </button>
-                    <router-link to="/categoryList" class="btn btn-warning">
+                    <router-link to="/userList" class="btn btn-warning">
                       Back</router-link
                     >
                     <!-- <button type="submit" @click="goBack" class="btn btn-warning">Back</button> -->
@@ -87,35 +118,58 @@ import Form from "vform";
 export default {
   name: "add",
 
-   data: () => ({
-    form: new Form({
-      cat_name: "",
-    }),
-  }),
-
-  mounted() {
-      axios.get('/getCategoryById/'+this.$route.params.categoryId).then((res) => {
-          console.log(res);
-          this.form.fill(res.data.categoryById);
-      }).catch((e) => {
-          console.log(e);
-      })
+  data() {
+    return {
+      name: '',
+      email: '',
+      // password: '',
+      // roles: '',
+      errors: {},
+    }
   },
-  
-  methods:{
-    updateCategory(){
-      this.form.post(`/updateCategory/${this.$route.params.categoryId}`)
+
+  created() {
+     axios
+      .get("/getUserById/" + this.$route.params.userId)
       .then((res) => {
         console.log(res);
-        this.$router.push('/categoryList');
-        Toast.fire({
-            icon: "success",
-            title: "Category Updated successfully",
-          });
-      }).catch((e) => {
-        console.log(e);
+        this.name = res.data.userById.name;
+        this.email = res.data.userById.email;
       })
-    }
+      .catch((e) => {
+        console.log(e);
+      });
+  },
+
+  // mounted() {
+  //     axios.get('/getCategoryById/'+this.$route.params.categoryId).then((res) => {
+  //         console.log(res);
+  //         this.form.fill(res.data.categoryById);
+  //     }).catch((e) => {
+  //         console.log(e);
+  //     })
+  // },
+  
+  methods:{
+    updateUser() {
+       let form = new FormData;
+          form.append('name', this.name);
+          form.append('email', this.email);
+         
+            axios.post(`/updateUser/${this.$route.params.userId}`,form)
+                .then((res) => {
+                    console.log(res);
+                    this.$router.push("/userList");
+                    Toast.fire({
+                        icon: "success",
+                        title: "User updated successfully",
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    this.errors = error.response.data.errors;
+                });
+    },
   }
 
 

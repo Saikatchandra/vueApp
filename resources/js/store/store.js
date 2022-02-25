@@ -7,6 +7,7 @@ export default {
         subCategory: [],
         content: [],
         user: [],
+        role: [],
     },
     getters: {
         categoryList(state){
@@ -20,6 +21,9 @@ export default {
         },
         userList(state){
             return state.user;
+        },
+        roleList(state){
+            return state.role;
         }
     },
     actions: {
@@ -54,6 +58,13 @@ export default {
                 console.log(e);
             })
         },
+        getRoleList(context){
+            axios.get('/roleList').then((res)=>{
+                context.commit('roleList',res.data.roleList)
+            }).catch((e)=>{
+                console.log(e);
+            })
+        },
     },
     mutations: {
         categoryList(state, responseData){
@@ -67,6 +78,9 @@ export default {
         },
         userList(state, responseData){
             return state.user = responseData
+        },
+        roleList(state, responseData){
+            return state.role = responseData
         },
     },
 

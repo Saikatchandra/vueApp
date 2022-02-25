@@ -43,9 +43,16 @@ Route::get('/getContentById/{id}', [App\Http\Controllers\ContentController::clas
 Route::post('/updateContent/{id}', [App\Http\Controllers\ContentController::class, 'update'])->name('content.update');
 Route::get('/deleteContent/{id}', [App\Http\Controllers\ContentController::class, 'delete'])->name('content.remove');
 
-Route::resource('roles', RoleController::class);
+// Route::resource('roles', RoleController::class);
 // Route::resource('users', UserController::class);
 // Route::resource('products', ProductController::class);
 Route::get('/userList', [App\Http\Controllers\UserController::class, 'index'])->name('user.list');
 Route::post('/saveUser', [App\Http\Controllers\UserController::class, 'store'])->name('user.save');
+Route::get('/getUserById/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+Route::post('/updateUser/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+Route::get('/deleteUser/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.remove');
+
+Route::get('/roleList', [App\Http\Controllers\RoleController::class, 'index'])->name('role.list');
+Route::get('/deleteRole/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->name('role.remove');
+// Route::post('/saveUser', [App\Http\Controllers\UserController::class, 'store'])->name('user.save');
 
