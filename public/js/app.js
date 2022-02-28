@@ -23535,6 +23535,9 @@ __webpack_require__.r(__webpack_exports__);
       var form = new FormData();
       form.append('name', this.name);
       form.append('email', this.email);
+      form.append('roles', this.roles);
+      form.append('password', this.password);
+      form.append('cpassword', this.cpassword);
       axios.post("/updateUser/".concat(this.$route.params.userId), form).then(function (res) {
         console.log(res);
 

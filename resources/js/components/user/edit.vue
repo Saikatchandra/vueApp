@@ -236,6 +236,9 @@ export default {
        let form = new FormData;
           form.append('name', this.name);
           form.append('email', this.email);
+          form.append('roles', this.roles);
+          form.append('password', this.password);
+          form.append('cpassword', this.cpassword);
          
             axios.post(`/updateUser/${this.$route.params.userId}`,form)
                 .then((res) => {
