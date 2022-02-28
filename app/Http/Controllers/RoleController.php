@@ -31,11 +31,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        // dd('sdf');
         $roleList = Role::orderBy('id','DESC')->get();
-        // dd($roleList);
-        // return view('roles.index',compact('roles'))
-        //     ->with('i', ($request->input('page', 1) - 1) * 5);
         return response()->json(['roleList'=>$roleList],200);
     }
     
@@ -58,6 +54,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
             'permission' => 'required',
@@ -66,8 +63,9 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
     
-        return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+        // return redirect()->route('roles.index')
+        //                 ->with('success','Role created successfully');
+        return response()->json(['success'=>true]);
     }
     /**
      * Display the specified resource.
@@ -137,5 +135,10 @@ class RoleController extends Controller
         // return redirect()->route('roles.index')
         //                 ->with('success','Role deleted successfully');
         return response()->json(['success'=> true],200);
+    }
+
+    public function getPermission(){
+        $permissionList = Permission::orderBy('id', 'DESC')->get();
+        return response()->json(['permissionList'=>$permissionList],200);
     }
 }

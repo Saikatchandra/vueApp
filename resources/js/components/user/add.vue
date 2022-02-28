@@ -1,5 +1,5 @@
 <template>
-  <div>
+   <div>
         <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -33,75 +33,110 @@
               <!-- general form elements -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Add new User</h3>
+                  <h3 class="card-title">add User</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form  @submit.prevent="saveUser" @keydown="form.onKeydown($event)">
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="">User Name</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="name"
-                        v-model="name"
-                        id=""
-                        placeholder="Enter User name"
+              <form role="form" @submit.prevent = 'userSave' enctype="multipart/form-data">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-7 right-border">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                    <label for=""> Name</label>
+                                     <input type="text" class="form-control" id="" v-model="form.name" placeholder="Enter Name" name="name">
+                                    <!-- <has-error :form="form" field="name"></has-error> -->
+                                     <!-- <div v-if = "errors && errors.name">{{errors.name[0]}}</div> -->
+                                       <div
+                        v-if="form.errors.has('name')"
+                        v-html="form.errors.get('name')"
                       />
-                      <div v-if = "errors && errors.title">{{errors.name[0]}}</div>
-                     
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Email</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="email"
-                        v-model="email"
-                        id="exampleInputEmail1"
-                        placeholder="Enter email name"
-                      />
-                      <div v-if = "errors && errors.title">{{errors.email[0]}}</div>
-                     
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Password</label>
-                      <input
-                        type="Password"
-                        class="form-control"
-                        name="password"
-                        v-model="password"
-                        id="exampleInputEmail1"
-                        placeholder="Enter password"
-                      />
-                      <div v-if = "errors && errors.title">{{errors.name[0]}}</div>
-                     
-                    </div>
-                    <!-- <div class="form-group">
-                      <label for="exampleInputEmail1">Role</label>
-                     
-                      <select name="roles" v-model = "roles" id="" class="form-control" >
-                        <option value="">sdfsdf</option>
-                        
-                      </select>
-                      <div v-if = "errors && errors.title">{{errors.name[0]}}</div>
-                     
-                    </div> -->
-                  </div>
-                  <!-- /.card-body -->
+                                    </div>
+                                </div>
 
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mr-3">
-                      Submit
-                    </button>
-                    <router-link to="/userList" class="btn btn-warning">
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                    <label for="exampleInputEmail1"> Email</label>
+                                     <input type="text" class="form-control" id="exampleInputEmail1" v-model="form.email" placeholder="Enter Email"
+                                    :class="{ 'is-invalid': form.errors.has('email') } " name="email">
+                                    <has-error :form="form" field="email"></has-error>
+                                     <div v-if = "errors && errors.email">{{errors.email[0]}}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                             <div class="row">
+                                <div class="col-md-12">
+                                     <div class="form-group">
+                                    <label for="exampleInputEmail1">Select Role</label>
+                                    <select type="text" class="form-control" id="exampleInputEmail1" v-model="form.roles"
+                                    :class="{ 'is-invalid': form.errors.has('roles') } " name="roles">
+                                  
+                                    <option :value="role.id" v-for="role in getRoleList" :key="role.id">{{role.name}}</option>
+                                    </select>
+                                        <has-error :form="form" field="roles"></has-error>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                           
+
+                        </div>
+
+                        <div class="col-md-5">
+
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                    <label for="exampleInputEmail1">Password</label>
+                                     <input type="password" class="form-control" id="exampleInputEmail1" v-model="form.password" placeholder="Enter Password"
+                                    :class="{ 'is-invalid': form.errors.has('password') } " name="password">
+                                    <has-error :form="form" field="password"></has-error>
+                                    </div>
+
+                                    
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                    <label for="exampleInputEmail1">Confirm Password</label>
+                                     <input type="password" class="form-control" id="exampleInputEmail1" v-model="form.cpassword" placeholder="Confirm Password"
+                                    :class="{ 'is-invalid': form.errors.has('cpassword') } " name="cpassword">
+                                    <has-error :form="form" field="cpassword"></has-error>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                             <div class="row">
+                                <div class="col-md-12">
+                                   <div class="card-footer text-center">
+                                    <button type="submit" class="btn btn-sm btn-primary mr-2">Submit</button>
+                                    <router-link to="/userList" class="btn btn-sm btn-danger">
                       Back</router-link
                     >
-                    <!-- <button type="submit" @click="goBack" class="btn btn-warning">Back</button> -->
-                  </div>
-                </form>
-              </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                  
+                </div>
+                <!-- /.card-body -->
+
+               
+              </form>
+             </div>
               <!-- /.card -->
             </div>
           </div>
@@ -119,46 +154,62 @@
 <script>
 import Form from "vform";
 export default {
-  name: "add",
+  name: "Save",
 
-  data() {
+  mounted(){
+      this.$store.dispatch('getRoleList')
+    },
+    computed:{
+      getRoleList(){
+       
+        return this.$store.getters.roleList
+      }
+
+
+    },
+
+  data () {
     return {
-      name: '',
-      email: '',
-      password: '',
-      // roles: '',
-      errors: {},
+      // Create a new form instance
+      form: new Form({
+        name: '',
+        email:'',
+        password:'',
+        cpassword:'',
+        roles:'',
+        
+      })
     }
   },
-  
-  methods:{
-    saveUser(){
-     let form = new FormData;
-          form.append('name', this.name);
-          form.append('email', this.email);
-          form.append('password', this.password);
-          // form.append('roles', this.roles);
-        
-            
-              axios.post("/saveUser",form)
-                .then((res) => {
-                    console.log(res);
-                    this.$router.push("/userList");
-                    Toast.fire({
-                        icon: "success",
-                        title: "User Added successfully",
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                    this.errors = error.response.data.errors;
-                });
-    }
+
+  methods: {
+    
+    userSave () {
+      // Submit the form via a POST request
+      this.form.post('/saveUser')
+        .then((response) => {
+           this.$router.push('/userList');
+           Toast.fire({
+            icon: 'success',
+            title: 'User added successfully'
+          })
+           
+       }).catch((error)=>{
+          console.log(error);
+       });
+    },
+
+    goBack(){
+      this.$router.push('/user');
+    },
+
   }
 
-
-};
+}
 </script>
 
-<style lang="scss" scoped>
+<style>
+ .right-border{
+     border-right:1px solid black;
+ }
 </style>

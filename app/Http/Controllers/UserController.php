@@ -55,16 +55,16 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            // 'password' => 'required|same:confirm-password',
-            'password' => 'required',
-            // 'roles' => 'required'
+            'password' => 'required|same:cpassword',
+            // 'password' => 'required',
+            'roles' => 'required'
         ]);
     
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
     
         $user = User::create($input);
-        // $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('roles'));
     
         // return redirect()->route('users.index')
         //                 ->with('success','User created successfully');
@@ -97,7 +97,15 @@ class UserController extends Controller
         $userRole = $userById->roles->pluck('name','name')->all();
     
         // return view('users.edit',compact('user','roles','userRole'));
-        return response()->json(['userById'=>$userById, 'roles'=>$roles,'userRole'=>$userRole]);
+        
+        $userById = DB::table('users')
+        ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
+        ->join('roles', 'model_has_roles.role_id', '=', 'roles.id')
+        ->select('users.*', 'roles.id as roles')
+        ->where('users.id', $id)
+        ->first();
+        // dd($userById);
+        return response()->json(['userById'=>$userById],200);
     }
     
     /**
