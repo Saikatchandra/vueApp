@@ -23180,36 +23180,61 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "add",
+  // data: () => ({
+  //   form: new Form({
+  //     name: "",
+  //     permission: [],
+  //   }),
+  // }),
   data: function data() {
     return {
       form: new vform__WEBPACK_IMPORTED_MODULE_0__["default"]({
-        cat_name: ""
+        name: "",
+        permission: []
       })
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
-    axios.get('/getCategoryById/' + this.$route.params.categoryId).then(function (res) {
-      console.log(res);
+    axios.get("/getRoleById/" + this.$route.params.roleId).then(function (response) {
+      // console.log(response.data.selectedRoleLength);
+      _this.name = response.data.roleById.name;
 
-      _this.form.fill(res.data.categoryById);
+      for (var i = 0; i <= response.data.permission.length; i++) {
+        for (var j = 1; j <= response.data.selectedRoleLength; j++) {
+          //  console.log(response.data.permission[i]);
+          //  console.log('sds',response.data.rolePermissions);
+          if (response.data.permission[i].id == response.data.rolePermissions[j]) {
+            // console.log('sd');
+            _this.form.permission[i] = response.data.rolePermissions[j];
+          }
+        }
+      }
     })["catch"](function (e) {
       console.log(e);
     });
   },
+  mounted: function mounted() {
+    this.$store.dispatch("getPermissionList");
+  },
+  computed: {
+    getPermissionList: function getPermissionList() {
+      return this.$store.getters.permissionList;
+    }
+  },
   methods: {
-    updateCategory: function updateCategory() {
+    saveRole: function saveRole() {
       var _this2 = this;
 
-      this.form.post("/updateCategory/".concat(this.$route.params.categoryId)).then(function (res) {
+      this.form.post("/saveRole").then(function (res) {
         console.log(res);
 
-        _this2.$router.push('/categoryList');
+        _this2.$router.push("/roleList");
 
         Toast.fire({
           icon: "success",
-          title: "Category Updated successfully"
+          title: "Role Added successfully"
         });
       })["catch"](function (e) {
         console.log(e);
@@ -24923,7 +24948,7 @@ var _hoisted_1 = {
   "class": "content-wrapper"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\"><div class=\"container-fluid\"><div class=\"row mb-2\"><div class=\"col-sm-6\"><h1 class=\"m-0\">Role update</h1></div><!-- /.col --><div class=\"col-sm-6\"><ol class=\"breadcrumb float-sm-right\"><li class=\"breadcrumb-item\"><a href=\"#\">Home</a></li><li class=\"breadcrumb-item active\">Role update</li></ol></div><!-- /.col --></div><!-- /.row --></div><!-- /.container-fluid --></div>", 1);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"content-header\"><div class=\"container-fluid\"><div class=\"row mb-2\"><div class=\"col-sm-6\"><h1 class=\"m-0\">Role add</h1></div><!-- /.col --><div class=\"col-sm-6\"><ol class=\"breadcrumb float-sm-right\"><li class=\"breadcrumb-item\"><a href=\"#\">Home</a></li><li class=\"breadcrumb-item active\">Role add</li></ol></div><!-- /.col --></div><!-- /.row --></div><!-- /.container-fluid --></div>", 1);
 
 var _hoisted_3 = {
   "class": "content"
@@ -24935,7 +24960,7 @@ var _hoisted_5 = {
   "class": "row justify-content-center"
 };
 var _hoisted_6 = {
-  "class": "col-md-8"
+  "class": "col-md-12"
 };
 var _hoisted_7 = {
   "class": "card card-primary"
@@ -24945,71 +24970,131 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "card-header"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
   "class": "card-title"
-}, "Update Category")], -1
+}, "Add new Role")], -1
 /* HOISTED */
 );
 
 var _hoisted_9 = {
-  "class": "card-body"
+  "class": "row"
 };
 var _hoisted_10 = {
+  "class": "col-md-4"
+};
+var _hoisted_11 = {
+  "class": "card-body"
+};
+var _hoisted_12 = {
   "class": "form-group"
 };
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "exampleInputEmail1"
-}, "Category Name", -1
+}, "Role Name", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = ["innerHTML"];
-var _hoisted_13 = {
+var _hoisted_14 = ["innerHTML"];
+var _hoisted_15 = {
   "class": "card-footer"
 };
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "btn btn-primary mr-3"
 }, " Submit ", -1
 /* HOISTED */
 );
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Back");
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Back");
 
+var _hoisted_18 = {
+  "class": "col-md-8"
+};
+var _hoisted_19 = {
+  "class": "card"
+};
+
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"card-header\"><div class=\"row\"><div class=\"col-md-3\">delete</div><div class=\"col-md-3\">Edit</div><div class=\"col-md-3\">Add</div><div class=\"col-md-3\">List</div></div></div>", 1);
+
+var _hoisted_21 = {
+  "class": "row"
+};
+var _hoisted_22 = {
+  "class": "row"
+};
+var _hoisted_23 = {
+  "class": "col-md-3"
+};
+var _hoisted_24 = {
+  "class": "form-group"
+};
+var _hoisted_25 = ["onUpdate:modelValue", "value"];
+var _hoisted_26 = ["innerHTML"];
+var _hoisted_27 = {
+  "class": "col-md-9"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Content Wrapper. Contains page content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Content Header (Page header) "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.content-header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Main content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" general form elements "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.card-header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" form start "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.updateCategory && $options.updateCategory.apply($options, arguments);
-    }, ["prevent"]))
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      return $options.saveRole && $options.saveRole.apply($options, arguments);
+    }, ["prevent"])),
+    onKeydown: _cache[2] || (_cache[2] = function ($event) {
+      return $data.form.onKeydown($event);
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control",
-    name: "cat_name",
+    name: "name",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.form.cat_name = $event;
+      return _ctx.name = $event;
     }),
     id: "exampleInputEmail1",
-    placeholder: "Enter category name"
+    placeholder: "Enter name"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.form.cat_name]]), _ctx.form.errors.has('cat_name') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.name]]), $data.form.errors.has('name') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     key: 0,
-    innerHTML: _ctx.form.errors.get('cat_name')
+    innerHTML: $data.form.errors.get('name')
   }, null, 8
   /* PROPS */
-  , _hoisted_12)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.card-body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [_hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-    to: "/categoryList",
+  , _hoisted_14)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.card-body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    to: "/roleList",
     "class": "btn btn-warning"
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_15];
+      return [_hoisted_17];
     }),
     _: 1
     /* STABLE */
 
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"submit\" @click=\"goBack\" class=\"btn btn-warning\">Back</button> ")])], 32
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"submit\" @click=\"goBack\" class=\"btn btn-warning\">Back</button> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.getPermissionList, function (permission) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": "col-md-3",
+      key: permission.id
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "checkbox",
+      "class": "form-control",
+      name: "permission",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return $data.form.permission = $event;
+      },
+      id: "",
+      value: permission.id
+    }, null, 8
+    /* PROPS */
+    , _hoisted_25), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.form.permission]]), $data.form.errors.has('permission') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: 0,
+      innerHTML: $data.form.errors.get('permission')
+    }, null, 8
+    /* PROPS */
+    , _hoisted_26)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(permission.name), 1
+    /* TEXT */
+    )])]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))])])])])], 32
   /* HYDRATE_EVENTS */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.card ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.row ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.container-fluid ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.content-wrapper ")]);
 }
@@ -25128,7 +25213,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(roleList.name), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
-      to: "/editCategory/".concat(roleList.id),
+      to: "/editRole/".concat(roleList.id),
       "class": "btn btn-sm btn-primary pr-2"
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {

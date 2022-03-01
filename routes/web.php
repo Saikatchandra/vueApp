@@ -54,6 +54,7 @@ Route::get('/deleteUser/{id}', [App\Http\Controllers\UserController::class, 'des
 
 Route::get('/roleList', [App\Http\Controllers\RoleController::class, 'index'])->name('role.list');
 Route::get('/deleteRole/{id}', [App\Http\Controllers\RoleController::class, 'delete'])->name('role.remove');
+Route::get('/getRoleById/{id}', [App\Http\Controllers\RoleController::class, 'edit'])->name('role.edit');
 // Route::post('/saveUser', [App\Http\Controllers\UserController::class, 'store'])->name('user.save');
 
 Route::get('/permissionList', [App\Http\Controllers\RoleController::class, 'getPermission'])->name('role.getPermission');

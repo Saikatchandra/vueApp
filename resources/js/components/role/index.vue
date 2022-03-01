@@ -61,7 +61,7 @@
                         <td>
                           <div class="">
                             <router-link
-                              :to="`/editCategory/${roleList.id}`"
+                              :to="`/editRole/${roleList.id}`"
                               class="btn btn-sm btn-primary pr-2"
                             >
                               <i class="fa fa-edit"></i>
